@@ -442,6 +442,21 @@
       background: var(--lav-bg); border-radius: 0 var(--radius) var(--radius) 0; margin: 22px 0;
     }
     .about-quote p { font-family: var(--font-display); font-size: 1.1rem; font-style: italic; color: var(--purple-dark); margin: 0; line-height: 1.6; }
+    .about-tarot-card {
+      position: relative; margin: 24px 0 8px;
+      border-radius: var(--radius-lg); overflow: hidden;
+      max-height: 220px;
+      box-shadow: 0 12px 40px rgba(124,58,237,0.15), 0 2px 8px rgba(0,0,0,0.08);
+      border: 1px solid var(--border);
+    }
+    .about-tarot-card img { width: 100%; height: 220px; object-fit: cover; object-position: center 30%; display: block; }
+    .about-tarot-label {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 28px 16px 12px;
+      background: linear-gradient(to top, rgba(45,27,107,0.75) 0%, transparent 100%);
+      color: rgba(255,255,255,0.9); font-size: 0.75rem; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+    }
     .ig-follow-btn {
       display: inline-flex; align-items: center; gap: 8px; padding: 11px 22px;
       border-radius: var(--radius-full);
@@ -758,10 +773,19 @@
 
       /* Hero text */
       .hero-text { text-align: center; }
-      .workshop-badge { margin-inline: auto; }
+      .workshop-badge { margin-inline: auto; font-size: 0.65rem; padding: 5px 12px 5px 10px; }
       .hero-pills { justify-content: center; }
       .hero-cta-group { align-items: center; }
-      .hero-scroll { margin-top: 28px; }
+      .hero-scroll { margin-top: 20px; }
+      .hero-portrait-wrap { width: clamp(150px, 55vw, 220px); margin-top: 28px; }
+      .hero-portrait-badge { left: -8px; padding: 8px 10px; }
+      .hero-portrait-badge .num { font-size: 1.1rem; }
+      .hero-date-badge { right: -8px; padding: 8px 10px; }
+      .hero-date-badge .num { font-size: 1rem; }
+      .hero-stats { margin-top: 28px; padding-top: 24px; gap: 16px; flex-wrap: wrap; }
+      .hero-stat-divider { display: none; }
+      .hero-stat-num { font-size: 1.5rem; }
+      .hero-inner { padding-bottom: clamp(36px, 6vw, 56px); }
 
       /* Event strip: wrap pills */
       .event-pills { gap: 8px; }
@@ -953,7 +977,7 @@
         <!-- Portrait -->
         <div class="hero-portrait-wrap reveal reveal-delay-2">
           <div class="hero-portrait-ring">
-            <img src="assets/images/hero-bg-new.png" alt="Coach Shivangi Kaur" loading="eager" />
+            <img src="assets/images/shivangi-portrait.png" alt="Coach Shivangi Kaur" loading="eager" />
           </div>
           <div class="hero-portrait-badge" aria-hidden="true">
             <span class="num">500+</span>
@@ -1104,6 +1128,10 @@
             <p>&ldquo;Tarot is not about predicting the future. It&rsquo;s about remembering who you already are.&rdquo;</p>
           </div>
           <p class="reveal reveal-delay-3">Her work has touched hundreds of lives across India &mdash; guiding individuals to release deep-rooted trauma, reclaim their intuition, and co-create a life aligned with their highest self.</p>
+          <div class="about-tarot-card reveal reveal-delay-4" aria-hidden="true">
+            <img src="assets/images/hero-bg-new.png" alt="Tarot cards" loading="lazy" />
+            <div class="about-tarot-label">The Cards She Reads</div>
+          </div>
           <div class="reveal reveal-delay-4" style="margin-top:26px;">
             <a href="https://instagram.com/coachshivangii" target="_blank" rel="noopener noreferrer" class="ig-follow-btn" aria-label="Follow @coachshivangii on Instagram">Follow @coachshivangii</a>
           </div>
