@@ -139,12 +139,19 @@
       padding: 12px 0; box-shadow: 0 2px 20px rgba(124,58,237,0.06);
     }
     .nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
-    .nav-logo { font-family: var(--font-display); font-size: 1.15rem; font-weight: 600; color: var(--purple-dark); white-space: nowrap; flex-shrink: 0; }
-    .nav-logo .nav-tagline { display: block; font-family: var(--font-body); font-size: 0.6rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--purple); opacity: 0.7; margin-top: -1px; }
+    .nav-logo { font-family: var(--font-display); font-size: 1.15rem; font-weight: 600; color: var(--purple-dark); white-space: nowrap; flex-shrink: 0; transition: color var(--t); }
+    .nav-logo .nav-tagline { display: block; font-family: var(--font-body); font-size: 0.6rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--purple); opacity: 0.7; margin-top: -1px; transition: color var(--t); }
     .nav-links { display: flex; align-items: center; gap: 26px; }
     .nav-links a { font-size: 0.85rem; font-weight: 500; color: var(--text-muted); transition: color var(--t); }
     .nav-links a:hover { color: var(--purple); }
     .nav-cta { flex-shrink: 0; }
+
+    /* Navbar over dark hero (unscrolled state) */
+    #navbar:not(.scrolled) .nav-logo { color: #fff; }
+    #navbar:not(.scrolled) .nav-logo .nav-tagline { color: var(--purple-light); opacity: 0.85; }
+    #navbar:not(.scrolled) .nav-links a { color: rgba(255,255,255,0.75); }
+    #navbar:not(.scrolled) .nav-links a:hover { color: #fff; }
+    #navbar:not(.scrolled) .hamburger span { background: #fff; }
 
     .hamburger { display: none; flex-direction: column; gap: 5px; padding: 8px; }
     .hamburger span { display: block; width: 22px; height: 2px; background: var(--black); border-radius: 2px; transition: all var(--t); }
@@ -163,7 +170,17 @@
     .mobile-nav a:hover { color: var(--purple); }
 
     /* ── HERO ── */
-    #hero { position: relative; min-height: 100svh; display: flex; align-items: flex-start; padding-top: 80px; overflow: hidden; background: var(--off-white); }
+    #hero {
+      position: relative; min-height: 100svh; display: flex; align-items: flex-start;
+      padding-top: 80px; overflow: hidden;
+      background: linear-gradient(160deg, #2D1B6B 0%, #1a1025 65%, #150c1d 100%);
+    }
+    .hero-glow {
+      position: absolute; inset: 0; z-index: 0; pointer-events: none;
+      background:
+        radial-gradient(ellipse 60% 50% at 85% 15%, rgba(196,181,253,0.22) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 45% at 10% 85%, rgba(124,58,237,0.28) 0%, transparent 70%);
+    }
     .hero-canvas { position: absolute; inset: 0; pointer-events: none; z-index: 0; width: 100%; height: 100%; }
     .hero-inner {
       position: relative; z-index: 1;
@@ -188,48 +205,48 @@
     .workshop-badge {
       display: inline-flex; align-items: center; gap: 8px;
       padding: 7px 18px 7px 12px; margin-bottom: 22px;
-      background: var(--purple-pale); border: 1.5px solid var(--purple-light);
+      background: rgba(196,181,253,0.14); border: 1.5px solid rgba(196,181,253,0.45);
       border-radius: var(--radius-full); font-size: 0.72rem; font-weight: 700;
-      color: var(--purple-dark); letter-spacing: 0.1em; text-transform: uppercase;
-      position: relative;
-      box-shadow: 0 0 0 0 rgba(124,58,237,0.18);
+      color: var(--purple-light); letter-spacing: 0.1em; text-transform: uppercase;
+      position: relative; backdrop-filter: blur(6px);
+      box-shadow: 0 0 0 0 rgba(196,181,253,0.25);
       animation: badge-pulse 2.4s ease-out infinite;
     }
     @keyframes badge-pulse {
-      0%   { box-shadow: 0 0 0 0   rgba(124,58,237,0.22); }
-      60%  { box-shadow: 0 0 0 10px rgba(124,58,237,0); }
-      100% { box-shadow: 0 0 0 0   rgba(124,58,237,0); }
+      0%   { box-shadow: 0 0 0 0   rgba(196,181,253,0.3); }
+      60%  { box-shadow: 0 0 0 10px rgba(196,181,253,0); }
+      100% { box-shadow: 0 0 0 0   rgba(196,181,253,0); }
     }
     .badge-dot {
-      width: 7px; height: 7px; background: var(--purple); border-radius: 50%;
+      width: 7px; height: 7px; background: var(--purple-light); border-radius: 50%;
       position: relative; flex-shrink: 0;
-      box-shadow: 0 0 0 0 rgba(124,58,237,0.5);
+      box-shadow: 0 0 0 0 rgba(196,181,253,0.5);
       animation: dot-ripple 1.5s ease-out infinite;
     }
     .badge-dot::after {
       content: ''; position: absolute; inset: -4px;
-      border-radius: 50%; border: 1.5px solid var(--purple);
+      border-radius: 50%; border: 1.5px solid var(--purple-light);
       opacity: 0; animation: dot-ring 1.5s ease-out infinite;
     }
     @keyframes dot-ripple { 0%,100%{transform:scale(1)} 50%{transform:scale(1.25)} }
     @keyframes dot-ring { 0%{opacity:0.6;transform:scale(1)} 100%{opacity:0;transform:scale(2.4)} }
 
-    .hero-script { margin-bottom: 6px; }
-    .hero-title { color: var(--black); margin-bottom: 6px; }
-    .hero-title em { font-style: italic; color: var(--purple-dark); }
-    .hero-subtitle { font-size: clamp(1rem, 1.8vw, 1.125rem); color: var(--text-muted); line-height: 1.8; max-width: 500px; margin: 18px 0 30px; }
+    .hero-script { margin-bottom: 6px; color: #ddd6fe; }
+    .hero-title { color: #fff; margin-bottom: 6px; }
+    .hero-title em { font-style: italic; color: #e9d5ff; }
+    .hero-subtitle { font-size: clamp(1rem, 1.8vw, 1.125rem); color: rgba(255,255,255,0.88); line-height: 1.8; max-width: 500px; margin: 18px 0 30px; }
 
     .hero-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }
     .hero-pill {
       display: inline-flex; align-items: center; gap: 6px;
-      padding: 6px 14px; background: var(--white); border: 1px solid var(--border);
-      border-radius: var(--radius-full); font-size: 0.8rem; font-weight: 500; color: var(--text-muted);
-      box-shadow: var(--shadow-card);
+      padding: 6px 14px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.18);
+      border-radius: var(--radius-full); font-size: 0.8rem; font-weight: 500; color: rgba(255,255,255,0.85);
+      backdrop-filter: blur(6px);
     }
-    .hero-pill.pill-free { background: var(--purple-pale); border-color: var(--purple-light); color: var(--purple-dark); font-weight: 700; }
+    .hero-pill.pill-free { background: var(--purple-light); border-color: var(--purple-light); color: var(--purple-deep); font-weight: 700; }
 
     .hero-cta-group { display: flex; flex-direction: column; gap: 12px; }
-    .hero-cta-note { font-size: 0.78rem; color: var(--text-muted); }
+    .hero-cta-note { font-size: 0.78rem; color: rgba(255,255,255,0.5); }
 
     .hero-image-panel { position: relative; }
     .hero-img-frame {
@@ -268,7 +285,7 @@
 
     .hero-scroll {
       display: flex; flex-direction: column; align-items: center; gap: 6px;
-      margin-top: 44px; color: var(--text-muted); font-size: 0.72rem;
+      margin-top: 44px; color: rgba(255,255,255,0.55); font-size: 0.72rem;
       letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer;
       animation: floathint 2.5s ease-in-out infinite;
     }
@@ -407,15 +424,29 @@
     }
     .ig-follow-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(131,58,180,0.45); }
 
+    /* ── BOTANICAL OVERLAY ── */
+    .botanical-overlay {
+      position: absolute; inset: 0; pointer-events: none; z-index: 0;
+      width: 100%; height: 100%; object-fit: cover;
+      mix-blend-mode: screen; opacity: 0.7;
+    }
+
     /* ── CURRICULUM ── */
     #curriculum { background: var(--lav-bg); padding-block: var(--pad-section); }
     .curriculum-inner { display: grid; grid-template-columns: auto 1fr; gap: 32px 40px; align-items: start; max-width: 820px; margin-inline: auto; }
     .curriculum-accent {
-      width: 2px; background: linear-gradient(180deg, var(--purple-light), var(--purple), var(--purple-light));
-      border-radius: 2px; margin-top: 8px; position: relative; align-self: stretch; min-height: 400px;
+      width: 80px; align-self: stretch; position: relative;
+      background: var(--purple-deep);
+      border-radius: 40px;
+      overflow: hidden;
+      box-shadow: 0 4px 32px rgba(45,27,107,0.35);
     }
-    .curriculum-accent::before { content: '☽'; position: absolute; top: -22px; left: 50%; transform: translateX(-50%); font-size: 1.1rem; color: var(--purple); }
-    .curriculum-accent::after  { content: '✦'; position: absolute; bottom: -18px; left: 50%; transform: translateX(-50%); font-size: 0.9rem; color: var(--purple-light); }
+    .curriculum-accent img {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%; object-fit: cover;
+      mix-blend-mode: screen;
+      filter: brightness(3.5) saturate(2);
+    }
     .curriculum-list { display: flex; flex-direction: column; gap: 18px; }
     .curriculum-item {
       background: var(--white); border: 1px solid var(--border);
@@ -686,7 +717,7 @@
       /* About: stack */
       .about-inner { grid-template-columns: 1fr; gap: 40px; }
       .about-photo-wrap { max-width: 260px; margin-inline: auto; }
-      .about-stats { left: auto; right: -10px; top: 10px; }
+      .about-stats { position: static; flex-direction: row; justify-content: center; flex-wrap: wrap; gap: 12px; margin-top: 16px; }
 
       /* Curriculum: hide decorative line */
       .curriculum-inner { grid-template-columns: 1fr; }
@@ -861,7 +892,9 @@
 
   <!-- HERO -->
   <section id="hero" aria-labelledby="hero-title">
+    <div class="hero-glow" aria-hidden="true"></div>
     <canvas class="hero-canvas" id="heroCanvas" aria-hidden="true"></canvas>
+    <img src="assets/images/botanical-texture.png" class="botanical-overlay" alt="" />
     <div class="container">
       <div class="hero-inner">
         <div class="hero-text">
@@ -1042,7 +1075,9 @@
         <p>A structured 90-minute journey through Tarot, energy healing, and manifestation &mdash; designed for complete beginners and seasoned seekers alike.</p>
       </div>
       <div class="curriculum-inner">
-        <div class="curriculum-accent" aria-hidden="true"></div>
+        <div class="curriculum-accent" aria-hidden="true">
+          <img src="assets/images/curriculum-accent.png" alt="" />
+        </div>
         <div class="curriculum-list">
           <div class="curriculum-item reveal">
             <div class="curriculum-head">
@@ -1243,6 +1278,7 @@
   <!-- TESTIMONIALS -->
   <section id="testimonials" aria-labelledby="testimonials-title">
     <div class="testimonials-bg" aria-hidden="true"></div>
+    <img src="assets/images/botanical-texture.png" class="botanical-overlay" alt="" />
     <div class="container">
       <div class="section-header">
         <span class="script-label">Participant Stories</span>
@@ -1484,8 +1520,8 @@
           this.r = Math.random() * 3 + 1;
           this.speed = Math.random() * 0.4 + 0.15;
           this.drift = (Math.random() - 0.5) * 0.3;
-          this.alpha = Math.random() * 0.35 + 0.08;
-          this.color = Math.random() > 0.5 ? '196,181,253' : '124,58,237';
+          this.alpha = Math.random() * 0.45 + 0.15;
+          this.color = Math.random() > 0.5 ? '196,181,253' : '255,255,255';
         };
         this.reset();
         this.y = Math.random() * H;
@@ -1511,7 +1547,7 @@
     })();
 
     /* ── Countdown ── */
-    const workshopDate = new Date('2025-07-05T19:00:00+05:30');
+    const workshopDate = new Date('2026-07-05T19:00:00+05:30');
     const cdDays  = document.getElementById('cd-days');
     const cdHours = document.getElementById('cd-hours');
     const cdMins  = document.getElementById('cd-mins');
@@ -1613,8 +1649,19 @@
       if (!allValid) { const first = regForm.querySelector('.error'); if (first) first.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
       submitBtn.classList.add('btn-loading'); submitBtn.disabled = true;
       try {
-        // Replace with: const res = await fetch('https://formspree.io/f/YOUR_ID', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(Object.fromEntries(new FormData(regForm))) }); if (!res.ok) throw new Error();
-        await new Promise(r => setTimeout(r, 1600));
+        const fd = new FormData(regForm);
+        const payload = {
+          name:   (fd.get('firstName') + ' ' + fd.get('lastName')).trim(),
+          email:  fd.get('email')  || '',
+          phone:  fd.get('phone')  || '',
+          goal:   fd.get('goal')   || '',
+          source: fd.get('source') || ''
+        };
+        await fetch('https://script.google.com/macros/s/AKfycbwIAkD1IZX9nua8gj0lRW1E7US8uC7g0V56a3HUtIp-rDMtePspY0BJ9-JPdQlYU8gO4Q/exec', {
+          method: 'POST',
+          mode: 'no-cors',
+          body: JSON.stringify(payload)
+        });
         document.getElementById('modalForm').style.display = 'none';
         document.getElementById('modalSuccess').classList.add('show');
         regForm.reset();
