@@ -2977,10 +2977,210 @@
         font-size: 0.8rem;
       }
     }
+
+    /* ══════════════════════════════════════════
+       ── SCROLL PROGRESS BAR (mobile only) ──
+    ══════════════════════════════════════════ */
+    #scrollProgressBar {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      #scrollProgressBar {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 3px;
+        width: 0%;
+        background: linear-gradient(90deg, #7c3aed 0%, #a78bfa 50%, #c4b5fd 100%);
+        z-index: 1100;
+        transition: width 0.08s linear;
+        border-radius: 0 3px 3px 0;
+        box-shadow: 0 0 8px rgba(124, 58, 237, 0.6);
+      }
+    }
+
+    /* ══════════════════════════════════════════
+       ── HERO CTA PULSE RING (mobile only) ──
+    ══════════════════════════════════════════ */
+    @keyframes heroRingPulse {
+      0% { transform: scale(1); opacity: 0.7; }
+      70% { transform: scale(1.55); opacity: 0; }
+      100% { transform: scale(1.55); opacity: 0; }
+    }
+
+    @media (max-width: 768px) {
+      .btn-hero-pulse {
+        position: relative;
+      }
+
+      .btn-hero-pulse::before {
+        content: '';
+        position: absolute;
+        inset: -4px;
+        border-radius: var(--radius-full);
+        border: 2px solid rgba(196, 181, 253, 0.7);
+        animation: heroRingPulse 2s ease-out infinite;
+        pointer-events: none;
+      }
+    }
+
+    /* ══════════════════════════════════════════
+       ── MOBILE STICKY CTA BAR ──
+    ══════════════════════════════════════════ */
+    #mobileStickyBar {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      #mobileStickyBar {
+        display: block;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 950;
+        /* Start hidden below viewport */
+        transform: translateY(100%);
+        transition: transform 0.42s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease;
+        opacity: 0;
+        pointer-events: none;
+        /* Safe area for iPhone home indicator */
+        padding-bottom: env(safe-area-inset-bottom, 0px);
+      }
+
+      #mobileStickyBar.visible {
+        transform: translateY(0);
+        opacity: 1;
+        pointer-events: all;
+      }
+
+      #mobileStickyBar.hidden-for-modal {
+        transform: translateY(100%);
+        opacity: 0;
+        pointer-events: none;
+        /* Faster hide when modal opens */
+        transition: transform 0.2s ease, opacity 0.2s ease;
+      }
+
+      .sticky-bar-inner {
+        background: rgba(13, 5, 21, 0.92);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-top: 1px solid rgba(196, 181, 253, 0.2);
+        box-shadow:
+          0 -8px 32px rgba(124, 58, 237, 0.18),
+          0 -2px 8px rgba(0, 0, 0, 0.25),
+          inset 0 1px 0 rgba(196, 181, 253, 0.1);
+        padding: 12px 16px 14px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .sticky-bar-text {
+        flex: 1;
+        min-width: 0;
+      }
+
+      .sticky-bar-urgency {
+        font-size: 0.68rem;
+        font-weight: 700;
+        color: #f9a8d4;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        line-height: 1.3;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .sticky-bar-urgency .fire-icon {
+        animation: fireFlicker 1.2s ease-in-out infinite alternate;
+        display: inline-block;
+      }
+
+      @keyframes fireFlicker {
+        0% { transform: scale(1) rotate(-3deg); }
+        100% { transform: scale(1.15) rotate(3deg); }
+      }
+
+      .sticky-bar-subtext {
+        font-size: 0.62rem;
+        color: rgba(255, 255, 255, 0.38);
+        margin-top: 2px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .sticky-bar-btn {
+        flex-shrink: 0;
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        padding: 11px 20px;
+        border-radius: var(--radius-full);
+        background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+        color: #fff;
+        font-family: var(--font-body);
+        font-size: 0.82rem;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+        border: none;
+        cursor: pointer;
+        box-shadow: 0 4px 18px rgba(124, 58, 237, 0.5), 0 0 0 0 rgba(167, 139, 250, 0.4);
+        animation: stickyCTAGlow 2.5s ease-in-out infinite;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        white-space: nowrap;
+      }
+
+      @keyframes stickyCTAGlow {
+        0%, 100% {
+          box-shadow: 0 4px 18px rgba(124, 58, 237, 0.5), 0 0 0 0 rgba(167, 139, 250, 0.4);
+        }
+        50% {
+          box-shadow: 0 4px 26px rgba(124, 58, 237, 0.7), 0 0 16px 4px rgba(167, 139, 250, 0.2);
+        }
+      }
+
+      .sticky-bar-btn:active {
+        transform: scale(0.96);
+      }
+
+      /* Micro-bounce on first appearance */
+      @keyframes stickyBounce {
+        0%   { transform: scale(1); }
+        30%  { transform: scale(1.06); }
+        55%  { transform: scale(0.97); }
+        75%  { transform: scale(1.03); }
+        100% { transform: scale(1); }
+      }
+
+      .sticky-bar-btn.first-appear {
+        animation: stickyBounce 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards,
+                   stickyCTAGlow 2.5s ease-in-out 0.5s infinite;
+      }
+
+      /* Adjust WA and back-to-top when sticky bar is visible */
+      body.sticky-bar-active .wa-btn {
+        bottom: calc(76px + 68px);
+        transition: bottom 0.42s cubic-bezier(0.34, 1.56, 0.64, 1);
+      }
+
+      body.sticky-bar-active #backToTop {
+        bottom: calc(18px + 68px);
+        transition: bottom 0.42s cubic-bezier(0.34, 1.56, 0.64, 1);
+      }
+    }
   </style>
 </head>
 
 <body>
+
+  <!-- SCROLL PROGRESS BAR -->
+  <div id="scrollProgressBar" aria-hidden="true" role="presentation"></div>
 
   <!-- NAVBAR -->
   <nav id="navbar" role="navigation" aria-label="Main navigation">
@@ -3044,7 +3244,7 @@
             A free live workshop with India&rsquo;s most trusted Tarot Energy Practitioner.
           </p>
           <div class="hero-cta-group reveal reveal-delay-3">
-            <button class="btn btn-purple btn-lg" onclick="openModal()" aria-haspopup="dialog">✦ Reserve My Free
+            <button class="btn btn-purple btn-lg btn-hero-pulse" id="heroCTABtn" onclick="openModal()" aria-haspopup="dialog">✦ Reserve My Free
               Seat</button>
             <p class="hero-cta-note">&#10003; No credit card &nbsp;&middot;&nbsp; &#10003; Instant Zoom link
               &nbsp;&middot;&nbsp; &#10003; 100% Free</p>
@@ -4169,6 +4369,27 @@
     </div>
   </div>
 
+  <!-- MOBILE STICKY CTA BAR (mobile only, appears after scrolling past hero) -->
+  <div id="mobileStickyBar" role="complementary" aria-label="Register for workshop">
+    <div class="sticky-bar-inner">
+      <div class="sticky-bar-text">
+        <div class="sticky-bar-urgency">
+          <span class="fire-icon" aria-hidden="true">🔥</span>
+          Only <span id="stickySeatsCount">12</span> seats left
+        </div>
+        <div class="sticky-bar-subtext">Free &middot; July 18 &middot; Live on Zoom</div>
+      </div>
+      <button
+        class="sticky-bar-btn"
+        id="stickyBarBtn"
+        onclick="openModal()"
+        aria-haspopup="dialog"
+        aria-label="Reserve your free seat - opens registration form">
+        Reserve Seat &rarr;
+      </button>
+    </div>
+  </div>
+
   <button id="backToTop" aria-label="Back to top" title="Back to top">&#8593;</button>
 
   <a href="https://wa.me/918951321616?text=Hello%20Coach%20Shivangi,%20I%20want%20to%20book%20a%20session."
@@ -4201,6 +4422,8 @@
       mobileNav.classList.toggle('open', mobileOpen);
       hamburger.setAttribute('aria-expanded', String(mobileOpen));
       document.body.style.overflow = mobileOpen ? 'hidden' : '';
+      /* Hide sticky bar when mobile nav is open (function set by IIFE below) */
+      if (typeof window.updateStickyBarVisibility === 'function') window.updateStickyBarVisibility();
     }
     hamburger.addEventListener('click', () => toggleMobileNav());
     document.querySelectorAll('.mobile-link').forEach(l => l.addEventListener('click', () => toggleMobileNav(false)));
@@ -4312,14 +4535,29 @@
       });
     });
 
-    /* ── Modal ── */
+    /* ── Modal (extended with sticky bar awareness) ── */
     const modal = document.getElementById('regModal');
+    let modalOpen = false;
     function openModal() {
-      modal.classList.add('show'); document.body.style.overflow = 'hidden';
+      modalOpen = true;
+      modal.classList.add('show');
+      document.body.style.overflow = 'hidden';
+      /* Hide sticky bar while modal is open */
+      const stickyBar = document.getElementById('mobileStickyBar');
+      if (stickyBar) stickyBar.classList.add('hidden-for-modal');
       setTimeout(() => { const f = modal.querySelector('input, button, select'); if (f) f.focus(); }, 50);
     }
     function closeModal() {
-      modal.classList.remove('show'); document.body.style.overflow = '';
+      modalOpen = false;
+      modal.classList.remove('show');
+      document.body.style.overflow = '';
+      /* Restore sticky bar after modal closes (if conditions met) */
+      const stickyBar = document.getElementById('mobileStickyBar');
+      if (stickyBar) {
+        stickyBar.classList.remove('hidden-for-modal');
+        /* Re-evaluate visibility so it comes back correctly */
+        if (typeof window.updateStickyBarVisibility === 'function') window.updateStickyBarVisibility();
+      }
       setTimeout(() => {
         document.getElementById('modalForm').style.display = '';
         document.getElementById('modalSuccess').classList.remove('show');
@@ -4411,6 +4649,112 @@
         if (target) { e.preventDefault(); window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - navbar.offsetHeight - 16, behavior: 'smooth' }); }
       });
     });
+
+    /* ═══════════════════════════════════════════════════════════════
+       ── MOBILE STICKY CTA BAR LOGIC ──
+       Shows when user scrolls past the hero section.
+       Hides when user returns to the hero section.
+       Also hides when modal or mobile nav is open.
+    ═══════════════════════════════════════════════════════════════ */
+    (function () {
+      const stickyBar    = document.getElementById('mobileStickyBar');
+      const stickyBtn    = document.getElementById('stickyBarBtn');
+      const heroSection  = document.getElementById('hero');
+      const progressBar  = document.getElementById('scrollProgressBar');
+      const seatsEl      = document.getElementById('stickySeatsCount');
+
+      if (!stickyBar || !heroSection) return;
+
+      let stickyVisible    = false;
+      let firstAppearance  = true;
+
+      /* ── Urgency seat counter (localStorage) ── */
+      (function initSeatsCounter() {
+        if (!seatsEl) return;
+        try {
+          const LS_KEY    = 'ws_seats_v2';
+          const LS_DATE   = 'ws_seats_date_v2';
+          const today     = new Date().toDateString();
+          const lastDate  = localStorage.getItem(LS_DATE);
+          let   seats     = parseInt(localStorage.getItem(LS_KEY), 10);
+
+          /* Initialize on first ever visit: random 14–18 */
+          if (isNaN(seats) || seats < 3) {
+            seats = Math.floor(Math.random() * 5) + 14; // 14–18
+          }
+
+          /* Decrease by 1 once per calendar day (simulate real demand) */
+          if (lastDate && lastDate !== today && seats > 3) {
+            seats = Math.max(3, seats - 1);
+          }
+
+          localStorage.setItem(LS_KEY, String(seats));
+          localStorage.setItem(LS_DATE, today);
+          seatsEl.textContent = seats;
+        } catch (e) {
+          /* localStorage unavailable (private mode) — use default */
+        }
+      })();
+
+      /* ── Core visibility controller ── */
+      function updateStickyBarVisibility() {
+        /* Only relevant on mobile (CSS will hide on desktop anyway, but skip JS overhead) */
+        if (window.innerWidth > 768) return;
+
+        const heroBottom  = heroSection.getBoundingClientRect().bottom;
+        /* Hero is still on screen if its bottom edge is > 40px from top of viewport */
+        const pastHero    = heroBottom < 40;
+        const shouldShow  = pastHero && !modalOpen && !mobileOpen;
+
+        if (shouldShow && !stickyVisible) {
+          /* Show sticky bar */
+          stickyVisible = true;
+          stickyBar.classList.add('visible');
+          document.body.classList.add('sticky-bar-active');
+
+          /* Micro-bounce on first appearance only */
+          if (firstAppearance && stickyBtn) {
+            firstAppearance = false;
+            stickyBtn.classList.add('first-appear');
+            /* Remove class after animation completes so glow resumes */
+            setTimeout(() => stickyBtn.classList.remove('first-appear'), 600);
+          }
+        } else if (!shouldShow && stickyVisible) {
+          /* Hide sticky bar */
+          stickyVisible = false;
+          stickyBar.classList.remove('visible');
+          document.body.classList.remove('sticky-bar-active');
+        }
+      }
+
+      /* Make function accessible to toggleMobileNav and modal functions */
+      window.updateStickyBarVisibility = updateStickyBarVisibility;
+
+      /* ── Scroll progress bar ── */
+      function updateProgressBar() {
+        if (!progressBar || window.innerWidth > 768) return;
+        const scrollTop    = window.scrollY;
+        const docHeight    = document.documentElement.scrollHeight - window.innerHeight;
+        const progress     = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+        progressBar.style.width = Math.min(100, progress).toFixed(2) + '%';
+      }
+
+      /* ── Combined scroll handler ── */
+      window.addEventListener('scroll', () => {
+        updateStickyBarVisibility();
+        updateProgressBar();
+      }, { passive: true });
+
+      /* ── Resize guard (orientation change) ── */
+      window.addEventListener('resize', () => {
+        updateStickyBarVisibility();
+        updateProgressBar();
+      }, { passive: true });
+
+      /* ── Run once on page load (in case page loads mid-scroll) ── */
+      updateStickyBarVisibility();
+      updateProgressBar();
+    })();
   </script>
 </body>
 
