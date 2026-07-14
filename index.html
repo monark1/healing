@@ -8,6 +8,12 @@
     content="Join Coach Shivangi Kaur's FREE live Tarot Awakening Workshop on July 18, 2025. Learn Tarot reading, energy healing & manifestation. Limited seats — register now." />
   <title>The Tarot Awakening Workshop — Coach Shivangi Kaur</title>
 
+  <!-- EmailJS SDK -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script type="text/javascript">
+    (function () { emailjs.init({ publicKey: 'strnYJW0U1A56AejI' }); })();
+  </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
@@ -4356,22 +4362,40 @@
       submitBtn.classList.add('btn-loading'); submitBtn.disabled = true;
       try {
         const fd = new FormData(regForm);
+        const firstName = (fd.get('firstName') || '').trim();
+        const lastName  = (fd.get('lastName')  || '').trim();
+        const fullName  = (firstName + ' ' + lastName).trim();
         const payload = {
-          name: (fd.get('firstName') + ' ' + fd.get('lastName')).trim(),
-          email: fd.get('email') || '',
-          phone: fd.get('phone') || '',
-          goal: fd.get('goal') || '',
+          name:   fullName,
+          email:  fd.get('email')  || '',
+          phone:  fd.get('phone')  || '',
+          goal:   fd.get('goal')   || '',
           source: fd.get('source') || ''
         };
+
+        /* ── 1. Save to Google Sheets ── */
         await fetch('https://script.google.com/macros/s/AKfycbwIAkD1IZX9nua8gj0lRW1E7US8uC7g0V56a3HUtIp-rDMtePspY0BJ9-JPdQlYU8gO4Q/exec', {
           method: 'POST',
           mode: 'no-cors',
           body: JSON.stringify(payload)
         });
+
+        /* ── 2. Send EmailJS auto-reply ── */
+        await emailjs.send(
+          'service_qj0r8nc',    // Service ID
+          'template_ulubnmg',   // Template ID
+          {
+            name:      fullName,      // matches {{name}} in template
+            email:     payload.email, // matches {{email}} in "To Email" field
+            reply_to:  payload.email
+          }
+        );
+
         document.getElementById('modalForm').style.display = 'none';
         document.getElementById('modalSuccess').classList.add('show');
         regForm.reset();
-      } catch {
+      } catch (err) {
+        console.error('Registration error:', err);
         alert('Something went wrong. Please try again or DM @coachshivangikaur on Instagram.');
       } finally {
         submitBtn.classList.remove('btn-loading'); submitBtn.disabled = false;
