@@ -2615,6 +2615,18 @@
         display: flex;
       }
 
+      .nav-logo {
+        gap: 8px !important;
+      }
+
+      .nav-logo img {
+        height: 44px !important;
+      }
+
+      .nav-logo .nav-tagline {
+        display: none !important;
+      }
+
       /* Hero text */
       .hero-text {
         text-align: center;
@@ -3186,9 +3198,12 @@
   <nav id="navbar" role="navigation" aria-label="Main navigation">
     <div class="container">
       <div class="nav-inner">
-        <a href="#" class="nav-logo" aria-label="Coach Shivangi Kaur Home">
-          &#10022; Coach Shivangi Kaur
-          <span class="nav-tagline">Energy Practitioner &amp; Tarot Master</span>
+        <a href="#" class="nav-logo" aria-label="Coach Shivangi Kaur Home" style="display: flex; align-items: center; gap: 10px;">
+          <img src="assets/images/logo.png" alt="Coach Shivangi Kaur Logo" style="height: 64px; width: auto;">
+          <div style="display: flex; flex-direction: column;">
+            <span>Coach Shivangi Kaur</span>
+            <span class="nav-tagline">Energy Practitioner &amp; Tarot Master</span>
+          </div>
         </a>
         <ul class="nav-links" role="list">
           <li><a href="#benefits">What You'll Learn</a></li>
@@ -4268,7 +4283,10 @@
     <div class="container">
       <div class="footer-inner">
         <div>
-          <div class="footer-logo">&#10022; Coach Shivangi Kaur</div>
+          <div class="footer-logo" style="display: flex; align-items: center; gap: 10px;">
+            <img src="assets/images/logo.png" alt="Coach Shivangi Kaur Logo" style="height: 72px; width: auto;">
+            <span>Coach Shivangi Kaur</span>
+          </div>
           <p class="footer-tagline">Energy Practitioner &middot; Tarot Master &middot; Trauma-Informed Facilitator</p>
         </div>
         <nav class="footer-links" aria-label="Footer navigation">
@@ -4364,7 +4382,12 @@
         <h3>You&rsquo;re In!</h3>
         <p>Your seat is reserved! Check your email for the Zoom link &mdash; we&rsquo;ll also send a reminder before the
           workshop starts. See you on July 18.</p>
-        <button class="btn btn-purple" onclick="closeModal()">Close &#10005;</button>
+        <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 24px;">
+          <a href="https://whatsapp.com/channel/0029VbDC6QM0lwgkRhNQSS3U" target="_blank" rel="noopener" class="btn btn-purple" style="width: 100%;">
+            Join WhatsApp Channel &#128242;
+          </a>
+          <button class="btn btn-outline-purple" onclick="closeModal()" style="width: 100%;">Close &#10005;</button>
+        </div>
       </div>
     </div>
   </div>
