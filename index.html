@@ -3017,9 +3017,20 @@
        ── HERO CTA PULSE RING (mobile only) ──
     ══════════════════════════════════════════ */
     @keyframes heroRingPulse {
-      0% { transform: scale(1); opacity: 0.7; }
-      70% { transform: scale(1.55); opacity: 0; }
-      100% { transform: scale(1.55); opacity: 0; }
+      0% {
+        transform: scale(1);
+        opacity: 0.7;
+      }
+
+      70% {
+        transform: scale(1.55);
+        opacity: 0;
+      }
+
+      100% {
+        transform: scale(1.55);
+        opacity: 0;
+      }
     }
 
     @media (max-width: 768px) {
@@ -3114,8 +3125,13 @@
       }
 
       @keyframes fireFlicker {
-        0% { transform: scale(1) rotate(-3deg); }
-        100% { transform: scale(1.15) rotate(3deg); }
+        0% {
+          transform: scale(1) rotate(-3deg);
+        }
+
+        100% {
+          transform: scale(1.15) rotate(3deg);
+        }
       }
 
       .sticky-bar-subtext {
@@ -3149,9 +3165,12 @@
       }
 
       @keyframes stickyCTAGlow {
-        0%, 100% {
+
+        0%,
+        100% {
           box-shadow: 0 4px 18px rgba(124, 58, 237, 0.5), 0 0 0 0 rgba(167, 139, 250, 0.4);
         }
+
         50% {
           box-shadow: 0 4px 26px rgba(124, 58, 237, 0.7), 0 0 16px 4px rgba(167, 139, 250, 0.2);
         }
@@ -3163,16 +3182,30 @@
 
       /* Micro-bounce on first appearance */
       @keyframes stickyBounce {
-        0%   { transform: scale(1); }
-        30%  { transform: scale(1.06); }
-        55%  { transform: scale(0.97); }
-        75%  { transform: scale(1.03); }
-        100% { transform: scale(1); }
+        0% {
+          transform: scale(1);
+        }
+
+        30% {
+          transform: scale(1.06);
+        }
+
+        55% {
+          transform: scale(0.97);
+        }
+
+        75% {
+          transform: scale(1.03);
+        }
+
+        100% {
+          transform: scale(1);
+        }
       }
 
       .sticky-bar-btn.first-appear {
         animation: stickyBounce 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards,
-                   stickyCTAGlow 2.5s ease-in-out 0.5s infinite;
+          stickyCTAGlow 2.5s ease-in-out 0.5s infinite;
       }
 
       /* Adjust WA and back-to-top when sticky bar is visible */
@@ -3198,7 +3231,8 @@
   <nav id="navbar" role="navigation" aria-label="Main navigation">
     <div class="container">
       <div class="nav-inner">
-        <a href="#" class="nav-logo" aria-label="Coach Shivangi Kaur Home" style="display: flex; align-items: center; gap: 10px;">
+        <a href="#" class="nav-logo" aria-label="Coach Shivangi Kaur Home"
+          style="display: flex; align-items: center; gap: 10px;">
           <img src="assets/images/logo.png" alt="Coach Shivangi Kaur Logo" style="height: 64px; width: auto;">
           <div style="display: flex; flex-direction: column;">
             <span>Coach Shivangi Kaur</span>
@@ -3259,7 +3293,8 @@
             A free live workshop with India&rsquo;s most trusted Tarot Energy Practitioner.
           </p>
           <div class="hero-cta-group reveal reveal-delay-3">
-            <button class="btn btn-purple btn-lg btn-hero-pulse" id="heroCTABtn" onclick="openModal()" aria-haspopup="dialog">✦ Reserve My Free
+            <button class="btn btn-purple btn-lg btn-hero-pulse" id="heroCTABtn" onclick="openModal()"
+              aria-haspopup="dialog">✦ Reserve My Free
               Seat</button>
             <p class="hero-cta-note">&#10003; No credit card &nbsp;&middot;&nbsp; &#10003; Instant Zoom link
               &nbsp;&middot;&nbsp; &#10003; 100% Free</p>
@@ -4283,11 +4318,11 @@
     <div class="container">
       <div class="footer-inner">
         <div>
-          <div class="footer-logo" style="display: flex; align-items: center; gap: 10px;">
-            <img src="assets/images/logo.png" alt="Coach Shivangi Kaur Logo" style="height: 72px; width: auto;">
-            <span>Coach Shivangi Kaur</span>
+          <div class="footer-logo" style="display: flex; align-items: center; justify-content: flex-start; margin-top: -30px; margin-left: -20px;">
+            <img src="assets/images/footer logo.png" alt="Coach Shivangi Kaur Logo"
+              style="height: auto; width: 250px; max-width: 100%;">
           </div>
-          <p class="footer-tagline">Energy Practitioner &middot; Tarot Master &middot; Trauma-Informed Facilitator</p>
+          <p class="footer-tagline" style="margin-top: -15px;">Energy Practitioner &middot; Tarot Master &middot; Trauma-Informed Facilitator</p>
         </div>
         <nav class="footer-links" aria-label="Footer navigation">
           <a href="#benefits">What You&rsquo;ll Learn</a>
@@ -4383,7 +4418,8 @@
         <p>Your seat is reserved! Check your email for the Zoom link &mdash; we&rsquo;ll also send a reminder before the
           workshop starts. See you on July 18.</p>
         <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 24px;">
-          <a href="https://whatsapp.com/channel/0029VbDC6QM0lwgkRhNQSS3U" target="_blank" rel="noopener" class="btn btn-purple" style="width: 100%;">
+          <a href="https://whatsapp.com/channel/0029VbDC6QM0lwgkRhNQSS3U" target="_blank" rel="noopener"
+            class="btn btn-purple" style="width: 100%;">
             Join WhatsApp Channel &#128242;
           </a>
           <button class="btn btn-outline-purple" onclick="closeModal()" style="width: 100%;">Close &#10005;</button>
@@ -4402,11 +4438,7 @@
         </div>
         <div class="sticky-bar-subtext">Free &middot; July 18 &middot; Live on Zoom</div>
       </div>
-      <button
-        class="sticky-bar-btn"
-        id="stickyBarBtn"
-        onclick="openModal()"
-        aria-haspopup="dialog"
+      <button class="sticky-bar-btn" id="stickyBarBtn" onclick="openModal()" aria-haspopup="dialog"
         aria-label="Reserve your free seat - opens registration form">
         Reserve Seat &rarr;
       </button>
@@ -4624,13 +4656,13 @@
       try {
         const fd = new FormData(regForm);
         const firstName = (fd.get('firstName') || '').trim();
-        const lastName  = (fd.get('lastName')  || '').trim();
-        const fullName  = (firstName + ' ' + lastName).trim();
+        const lastName = (fd.get('lastName') || '').trim();
+        const fullName = (firstName + ' ' + lastName).trim();
         const payload = {
-          name:   fullName,
-          email:  fd.get('email')  || '',
-          phone:  fd.get('phone')  || '',
-          goal:   fd.get('goal')   || '',
+          name: fullName,
+          email: fd.get('email') || '',
+          phone: fd.get('phone') || '',
+          goal: fd.get('goal') || '',
           source: fd.get('source') || ''
         };
 
@@ -4646,9 +4678,9 @@
           'service_qj0r8nc',    // Service ID
           'template_ulubnmg',   // Template ID
           {
-            name:      fullName,      // matches {{name}} in template
-            email:     payload.email, // matches {{email}} in "To Email" field
-            reply_to:  payload.email
+            name: fullName,      // matches {{name}} in template
+            email: payload.email, // matches {{email}} in "To Email" field
+            reply_to: payload.email
           }
         );
 
@@ -4680,26 +4712,26 @@
        Also hides when modal or mobile nav is open.
     ═══════════════════════════════════════════════════════════════ */
     (function () {
-      const stickyBar    = document.getElementById('mobileStickyBar');
-      const stickyBtn    = document.getElementById('stickyBarBtn');
-      const heroSection  = document.getElementById('hero');
-      const progressBar  = document.getElementById('scrollProgressBar');
-      const seatsEl      = document.getElementById('stickySeatsCount');
+      const stickyBar = document.getElementById('mobileStickyBar');
+      const stickyBtn = document.getElementById('stickyBarBtn');
+      const heroSection = document.getElementById('hero');
+      const progressBar = document.getElementById('scrollProgressBar');
+      const seatsEl = document.getElementById('stickySeatsCount');
 
       if (!stickyBar || !heroSection) return;
 
-      let stickyVisible    = false;
-      let firstAppearance  = true;
+      let stickyVisible = false;
+      let firstAppearance = true;
 
       /* ── Urgency seat counter (localStorage) ── */
       (function initSeatsCounter() {
         if (!seatsEl) return;
         try {
-          const LS_KEY    = 'ws_seats_v2';
-          const LS_DATE   = 'ws_seats_date_v2';
-          const today     = new Date().toDateString();
-          const lastDate  = localStorage.getItem(LS_DATE);
-          let   seats     = parseInt(localStorage.getItem(LS_KEY), 10);
+          const LS_KEY = 'ws_seats_v2';
+          const LS_DATE = 'ws_seats_date_v2';
+          const today = new Date().toDateString();
+          const lastDate = localStorage.getItem(LS_DATE);
+          let seats = parseInt(localStorage.getItem(LS_KEY), 10);
 
           /* Initialize on first ever visit: random 14–18 */
           if (isNaN(seats) || seats < 3) {
@@ -4724,10 +4756,10 @@
         /* Only relevant on mobile (CSS will hide on desktop anyway, but skip JS overhead) */
         if (window.innerWidth > 768) return;
 
-        const heroBottom  = heroSection.getBoundingClientRect().bottom;
+        const heroBottom = heroSection.getBoundingClientRect().bottom;
         /* Hero is still on screen if its bottom edge is > 40px from top of viewport */
-        const pastHero    = heroBottom < 40;
-        const shouldShow  = pastHero && !modalOpen && !mobileOpen;
+        const pastHero = heroBottom < 40;
+        const shouldShow = pastHero && !modalOpen && !mobileOpen;
 
         if (shouldShow && !stickyVisible) {
           /* Show sticky bar */
@@ -4756,9 +4788,9 @@
       /* ── Scroll progress bar ── */
       function updateProgressBar() {
         if (!progressBar || window.innerWidth > 768) return;
-        const scrollTop    = window.scrollY;
-        const docHeight    = document.documentElement.scrollHeight - window.innerHeight;
-        const progress     = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+        const scrollTop = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
         progressBar.style.width = Math.min(100, progress).toFixed(2) + '%';
       }
 
