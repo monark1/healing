@@ -3318,7 +3318,7 @@
           <li><a href="#benefits">What You'll Learn</a></li>
           <li><a href="#about">About</a></li>
           <li><a href="#curriculum">Curriculum</a></li>
-          <li><a href="#consultations">1:1 Sessions</a></li>
+          <!-- <li><a href="#consultations">1:1 Sessions</a></li> -->
           <li><a href="#testimonials">Stories</a></li>
           <li><a href="#faq">FAQ</a></li>
         </ul>
@@ -4520,23 +4520,27 @@
         <div style="margin-bottom: 20px;">
           <div style="font-size: 2.5rem; margin-bottom: 12px;">💳</div>
           <h3 style="margin: 0 0 8px 0;">Complete Your Payment</h3>
-          <p style="color: var(--text-muted); font-size: 0.95rem; margin: 0;">Click the button below to pay ₹49 securely via Razorpay</p>
+          <p style="color: var(--text-muted); font-size: 0.95rem; margin: 0;">Click the button below to pay ₹49 securely
+            via Razorpay</p>
         </div>
         <div id="razorpayBtnContainer">
           <form>
-            <script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_TY60PNh8pFu9hy" async></script>
+            <script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_TY60PNh8pFu9hy"
+              async></script>
           </form>
         </div>
-        <button class="btn btn-outline-purple" onclick="backToForm()" style="width: 100%; margin-top: 16px;">&#8592; Back to Form</button>
+        <button class="btn btn-outline-purple" onclick="backToForm()" style="width: 100%; margin-top: 16px;">&#8592;
+          Back to Form</button>
       </div>
       <div id="modalSuccess" aria-live="polite">
         <div class="success-icon" aria-hidden="true">&#127881;</div>
         <h3>Payment Successful! You&rsquo;re In!</h3>
-        <p>Your seat is confirmed! Check your email for the Zoom link &mdash; we&rsquo;ll also send a reminder before the
+        <p>Your seat is confirmed! Check your email for the Zoom link &mdash; we&rsquo;ll also send a reminder before
+          the
           workshop starts. See you on September 21.</p>
         <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 24px;">
-          <a href="https://www.instagram.com/coachshivangikaur/" target="_blank" rel="noopener"
-            class="btn btn-purple" style="width: 100%;">
+          <a href="https://www.instagram.com/coachshivangikaur/" target="_blank" rel="noopener" class="btn btn-purple"
+            style="width: 100%;">
             Follow on Instagram &#128248;
           </a>
           <a href="https://whatsapp.com/channel/0029VbDC6QM0lwgkRhNQSS3U" target="_blank" rel="noopener"
@@ -4774,7 +4778,7 @@
       let allValid = true;
       regForm.querySelectorAll('[required]').forEach(el => { if (!validateInput(el)) allValid = false; });
       if (!allValid) { const first = regForm.querySelector('.error'); if (first) first.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
-      
+
       /* Save user data for after payment */
       window._paymentProcessed = false;
       const fd = new FormData(regForm);
@@ -4787,7 +4791,7 @@
         goal: fd.get('goal') || '',
         source: fd.get('source') || ''
       };
-      
+
       /* Hide form, show payment step */
       document.getElementById('modalForm').style.display = 'none';
       document.getElementById('modalPayment').style.display = 'block';
@@ -4802,31 +4806,31 @@
     /* Listen for Razorpay payment completion */
     /* Razorpay Payment Button posts a message on success with razorpay_payment_id */
     window._paymentProcessed = false;
-    window.addEventListener('message', async function(event) {
+    window.addEventListener('message', async function (event) {
       /* Only process if we have user data waiting and haven't already processed */
       if (!window._workshopPayload || window._paymentProcessed) return;
-      
+
       /* Parse the event data */
       let data = event.data;
       if (typeof data === 'string') {
-        try { data = JSON.parse(data); } catch(e) { return; }
+        try { data = JSON.parse(data); } catch (e) { return; }
       }
       if (!data || typeof data !== 'object') return;
-      
+
       /* Strict check: only trigger on confirmed payment success with a payment ID */
       const isSuccess = (
         (data.event === 'payment.success' && data.payload && data.payload.payment && data.payload.payment.entity && data.payload.payment.entity.id) ||
         (data.razorpay_payment_id && data.razorpay_payment_id.startsWith('pay_'))
       );
-      
+
       if (!isSuccess) return;
-      
+
       window._paymentProcessed = true;
-      
+
       try {
         const payload = window._workshopPayload;
         payload.payment_id = data.razorpay_payment_id || (data.payload && data.payload.payment && data.payload.payment.entity && data.payload.payment.entity.id) || '';
-        
+
         /* 1. Save to Google Sheets */
         await fetch('https://script.google.com/macros/s/AKfycbwIAkD1IZX9nua8gj0lRW1E7US8uC7g0V56a3HUtIp-rDMtePspY0BJ9-JPdQlYU8gO4Q/exec', {
           method: 'POST',
