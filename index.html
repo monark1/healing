@@ -4515,23 +4515,7 @@
           <p class="modal-privacy">&#128274; Your information is safe and will never be shared.</p>
         </form>
       </div>
-      <!-- Razorpay Payment Step -->
-      <div id="modalPayment" style="display:none; text-align:center; padding: 30px;">
-        <div style="margin-bottom: 20px;">
-          <div style="font-size: 2.5rem; margin-bottom: 12px;">💳</div>
-          <h3 style="margin: 0 0 8px 0;">Complete Your Payment</h3>
-          <p style="color: var(--text-muted); font-size: 0.95rem; margin: 0;">Click the button below to pay ₹49 securely
-            via Razorpay</p>
-        </div>
-        <div id="razorpayBtnContainer">
-          <form>
-            <script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_TY60PNh8pFu9hy"
-              async></script>
-          </form>
-        </div>
-        <button class="btn btn-outline-purple" onclick="backToForm()" style="width: 100%; margin-top: 16px;">&#8592;
-          Back to Form</button>
-      </div>
+
       <div id="modalSuccess" aria-live="polite">
         <div class="success-icon" aria-hidden="true">&#127881;</div>
         <h3>Payment Successful! You&rsquo;re In!</h3>
@@ -4740,7 +4724,6 @@
       }
       setTimeout(() => {
         document.getElementById('modalForm').style.display = '';
-        document.getElementById('modalPayment').style.display = 'none';
         document.getElementById('modalSuccess').classList.remove('show');
         regForm.querySelectorAll('input, select').forEach(el => el.classList.remove('error', 'success'));
         regForm.querySelectorAll('.form-error').forEach(el => el.classList.remove('show'));
@@ -4779,12 +4762,11 @@
       regForm.querySelectorAll('[required]').forEach(el => { if (!validateInput(el)) allValid = false; });
       if (!allValid) { const first = regForm.querySelector('.error'); if (first) first.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
 
-      /* Save user data for after payment */
-      window._paymentProcessed = false;
+      /* Collect user data */
       const fd = new FormData(regForm);
       const firstName = (fd.get('firstName') || '').trim();
       const lastName = (fd.get('lastName') || '').trim();
-      window._workshopPayload = {
+      const userPayload = {
         name: (firstName + ' ' + lastName).trim(),
         email: (fd.get('email') || '').trim(),
         phone: (fd.get('phone') || '').trim(),
@@ -4792,73 +4774,57 @@
         source: fd.get('source') || ''
       };
 
-      /* Hide form, show payment step */
-      document.getElementById('modalForm').style.display = 'none';
-      document.getElementById('modalPayment').style.display = 'block';
-    });
+      /* Open Razorpay Checkout */
+      const options = {
+        "key": "rzp_live_Ta3DMdC3LAa7oN",
+        "amount": "4900", // ₹49 in paise
+        "currency": "INR",
+        "name": "Coach Shivangi Kaur",
+        "description": "The Tarot Awakening Workshop",
+        "prefill": {
+            "name": userPayload.name,
+            "email": userPayload.email,
+            "contact": userPayload.phone
+        },
+        "theme": {
+            "color": "#4A154B"
+        },
+        "handler": async function (response) {
+            userPayload.payment_id = response.razorpay_payment_id || '';
+            
+            /* Show success screen directly */
+            document.getElementById('modalForm').style.display = 'none';
+            document.getElementById('modalSuccess').classList.add('show');
+            regForm.reset();
 
-    /* Back to form from payment step */
-    function backToForm() {
-      document.getElementById('modalPayment').style.display = 'none';
-      document.getElementById('modalForm').style.display = '';
-    }
+            try {
+              /* 1. Save to Google Sheets */
+              await fetch('https://script.google.com/macros/s/AKfycbwIAkD1IZX9nua8gj0lRW1E7US8uC7g0V56a3HUtIp-rDMtePspY0BJ9-JPdQlYU8gO4Q/exec', {
+                method: 'POST',
+                mode: 'no-cors',
+                body: JSON.stringify(userPayload)
+              });
 
-    /* Listen for Razorpay payment completion */
-    /* Razorpay Payment Button posts a message on success with razorpay_payment_id */
-    window._paymentProcessed = false;
-    window.addEventListener('message', async function (event) {
-      /* Only process if we have user data waiting and haven't already processed */
-      if (!window._workshopPayload || window._paymentProcessed) return;
-
-      /* Parse the event data */
-      let data = event.data;
-      if (typeof data === 'string') {
-        try { data = JSON.parse(data); } catch (e) { return; }
-      }
-      if (!data || typeof data !== 'object') return;
-
-      /* Strict check: only trigger on confirmed payment success with a payment ID */
-      const isSuccess = (
-        (data.event === 'payment.success' && data.payload && data.payload.payment && data.payload.payment.entity && data.payload.payment.entity.id) ||
-        (data.razorpay_payment_id && data.razorpay_payment_id.startsWith('pay_'))
-      );
-
-      if (!isSuccess) return;
-
-      window._paymentProcessed = true;
-
-      try {
-        const payload = window._workshopPayload;
-        payload.payment_id = data.razorpay_payment_id || (data.payload && data.payload.payment && data.payload.payment.entity && data.payload.payment.entity.id) || '';
-
-        /* 1. Save to Google Sheets */
-        await fetch('https://script.google.com/macros/s/AKfycbwIAkD1IZX9nua8gj0lRW1E7US8uC7g0V56a3HUtIp-rDMtePspY0BJ9-JPdQlYU8gO4Q/exec', {
-          method: 'POST',
-          mode: 'no-cors',
-          body: JSON.stringify(payload)
-        });
-
-        /* 2. Send EmailJS auto-reply */
-        if (payload.email) {
-          await emailjs.send(
-            'service_qj0r8nc',
-            'template_ulubnmg',
-            {
-              name: payload.name,
-              email: payload.email,
-              reply_to: payload.email
+              /* 2. Send EmailJS auto-reply */
+              if (userPayload.email) {
+                await emailjs.send(
+                  'service_qj0r8nc',
+                  'template_ulubnmg',
+                  {
+                    name: userPayload.name,
+                    email: userPayload.email,
+                    reply_to: userPayload.email
+                  }
+                );
+              }
+            } catch (err) {
+              console.error('Post-payment processing error:', err);
             }
-          );
         }
-      } catch (err) {
-        console.error('Post-payment processing error:', err);
-      }
-
-      /* Show success screen */
-      document.getElementById('modalPayment').style.display = 'none';
-      document.getElementById('modalForm').style.display = 'none';
-      document.getElementById('modalSuccess').classList.add('show');
-      regForm.reset();
+      };
+      
+      const rzp = new window.Razorpay(options);
+      rzp.open();
     });
 
     /* ── Smooth scroll ── */
