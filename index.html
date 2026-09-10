@@ -2506,37 +2506,153 @@
 
     #modalSuccess {
       display: none;
-      text-align: center;
-      padding: 44px 28px;
+      text-align: left;
+      padding: 0;
     }
 
     #modalSuccess.show {
       display: block;
+      animation: fadeIn 0.4s ease-out forwards;
+    }
+
+    .success-header {
+      text-align: center;
+      background: linear-gradient(135deg, rgba(230, 222, 243, 0.4), rgba(246, 237, 230, 0.4));
+      padding: 40px 30px 24px;
+      border-radius: 16px 16px 0 0;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.04);
     }
 
     .success-icon {
-      width: 68px;
-      height: 68px;
+      width: 72px;
+      height: 72px;
       border-radius: 50%;
-      background: linear-gradient(135deg, var(--purple), var(--purple-dark));
+      background: #25D366;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.8rem;
-      margin: 0 auto 18px;
+      margin: 0 auto 20px;
+      box-shadow: 0 10px 20px rgba(37, 211, 102, 0.25);
+      animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
     }
 
-    #modalSuccess h3 {
+    @keyframes popIn {
+      0% {
+        transform: scale(0);
+        opacity: 0;
+      }
+
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    .success-header h3 {
       font-family: var(--font-display);
-      font-size: 1.8rem;
+      font-size: 2rem;
       color: var(--black);
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
 
-    #modalSuccess p {
+    .success-header p {
       color: var(--text-muted);
-      line-height: 1.7;
-      margin-bottom: 22px;
+      font-size: 1rem;
+      margin: 0;
+    }
+
+    .success-steps {
+      padding: 24px 30px;
+    }
+
+    .success-steps h4 {
+      font-family: var(--font-sans);
+      font-weight: 600;
+      font-size: 1.1rem;
+      margin-bottom: 20px;
+      color: var(--black);
+    }
+
+    .step-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .step-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .step-num {
+      flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--purple-light);
+      color: var(--purple-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.9rem;
+      margin-top: 2px;
+    }
+
+    .step-list li div strong {
+      display: block;
+      color: var(--black);
+      font-weight: 600;
+      margin-bottom: 4px;
+      font-size: 1rem;
+    }
+
+    .step-list li div span {
+      display: block;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      line-height: 1.4;
+    }
+
+    .success-actions {
+      padding: 0 30px 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .btn-whatsapp {
+      background: linear-gradient(135deg, #25D366, #128C7E);
+      color: white !important;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .btn-whatsapp:hover {
+      background: linear-gradient(135deg, #20BD5B, #0F786C);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 15px rgba(37, 211, 102, 0.2);
+    }
+
+    .btn-instagram {
+      background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+      color: white !important;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .btn-instagram:hover {
+      filter: brightness(1.1);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 15px rgba(220, 39, 67, 0.2);
     }
 
     /* ── BACK TO TOP ── */
@@ -4536,21 +4652,66 @@
       </div>
 
       <div id="modalSuccess" aria-live="polite">
-        <div class="success-icon" aria-hidden="true">&#127881;</div>
-        <h3>Payment Successful! You&rsquo;re In!</h3>
-        <p>Your seat is confirmed! Check your email for the Zoom link &mdash; we&rsquo;ll also send a reminder before
-          the
-          workshop starts. See you on September 21.</p>
-        <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 24px;">
-          <a href="https://www.instagram.com/coachshivangikaur/" target="_blank" rel="noopener" class="btn btn-purple"
-            style="width: 100%;">
-            Follow on Instagram &#128248;
-          </a>
+        <div class="success-header">
+          <div class="success-icon" aria-hidden="true">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"
+              stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+          </div>
+          <h3>Thank You for Registering!</h3>
+          <p>Your seat for <strong>The Tarot Awakening Workshop</strong> is confirmed.</p>
+        </div>
+
+        <div class="success-steps">
+          <h4>Next Steps:</h4>
+          <ul class="step-list">
+            <li>
+              <span class="step-num">1</span>
+              <div>
+                <strong>Check your inbox</strong>
+                <span>We've sent you workshop details.</span>
+              </div>
+            </li>
+            <li>
+              <span class="step-num">2</span>
+              <div>
+                <strong>Join the community</strong>
+                <span>Get regular updates and connect with others before we start!</span>
+              </div>
+            </li>
+            <li>
+              <span class="step-num">3</span>
+              <div>
+                <strong>Follow on Instagram</strong>
+                <span>Stay connected for daily tarot guidance.</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="success-actions">
           <a href="https://whatsapp.com/channel/0029VbDC6QM0lwgkRhNQSS3U" target="_blank" rel="noopener"
-            class="btn btn-purple" style="width: 100%; background: linear-gradient(135deg, #25D366, #128C7E);">
-            Join WhatsApp Group for Updates &#128242;
+            class="btn btn-whatsapp">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path
+                d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
+              </path>
+            </svg>
+            Join WhatsApp Group
           </a>
-          <button class="btn btn-outline-purple" onclick="closeModal()" style="width: 100%;">Close &#10005;</button>
+          <a href="https://www.instagram.com/coachshivangikaur/" target="_blank" rel="noopener"
+            class="btn btn-instagram">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+            </svg>
+            Follow on Instagram
+          </a>
+          <button class="btn btn-outline-purple" onclick="closeModal()" style="width: 100%;">Close Window</button>
         </div>
       </div>
     </div>
